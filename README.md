@@ -9,8 +9,8 @@ Bot for example - [@T16TestBot](https://t.me/T16TestBot) (now powered off)
 Minimum OS requirements:
 
 - Active internet access;
-- Installed Git;
-- Installed Golang;
+- [Installed Git](https://git-scm.com/downloads);
+- [Installed Golang](https://go.dev/doc/install);
 
 ### Cloning a repository
 
