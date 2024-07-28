@@ -4,58 +4,87 @@ DevOps application from scratch. This project implements a simple Telegram bot f
 
 Bot for example - [@T16TestBot](https://t.me/T16TestBot) (now powered off)
 
-## How to
+## How to up
 
-Minimum OS requirements:
+Minimum requirements:
 
 - Active internet access;
-- Installed Git;
-- Installed Golang;
+- [Installed Git](https://git-scm.com/downloads);
+- [Installed Golang](https://go.dev/doc/install);
+- [Installed GNU Make](https://www.gnu.org/software/make/manual/make.html);
 
-### Cloning a repository
+### - Clone a repository:
 
-If you want to test this kBot app together with your Telegram bot, you need to follow these steps:
+If you want to test this kBot app with connection to your Telegram bot, you need to follow these steps:
 
-To clone using SSH:
+Clone repository:
 ```sh
+# via SSH
 git clone git@github.com/artur-titov/kbot.git
-```
-To clone using HTTPS:
-```sh
+
+# via HTTPS
 git clone https://github.com/artur-titov/kbot.git
-```
-To clone using GitHub CLI:
-```sh
+
+# or using GitHub CLI
 gh repo clone artur-titov/kbot
 ```
 
-### Setting parameters
+### - Set environment variables:
 
-After this, you need to create your bot in Telegram and get an API-token. Then you need to transfer this token to the kBot app. While in the project directory, execute the commands:
+First, you need to create your bot in [Telegram App](https://telegram.org/) and get an API-token. Then you need to transfer this token to the kBot. While in the project directory, execute the commands:
 
 ```sh
-touch .env && echo "TELE_TOKEN=<bot_api-token>" > .env
+cp .env.dist .env && nano .env
 ```
+
+Please, set your Docker Image repository in 'REGISTRY' variable. You also can change target OS and architecture for your App when 'make build' command is running. 
 
 Add a .gitignore file if necessary:
 ```sh
-touch .gitignore
+touch .gitignore && echo -e ".gitignore\n.env\nkbot" >> .gitignore
 ```
+
+### - Up Docker container:
+
 ```sh
-echo ".gitignore" >> .gitignore && echo ".env" >> .gitignore
+make image
 ```
 
-### Using kBot
-
-After that, start the kBot app:
 ```sh
-./kbot start
+docker run <image_sha>
 ```
 
-#### Supported commands 
 
-*Text to your Bot in Telegram*:
+
+## How to use kBot
+
+You can text to your Bot in Telegram App.
+
+*Supported commands*:
 
 | Command       | Response            |
 | :---          | :---                |
 | /start hello  | Current bot version |
+
+
+## Make commands for Developers
+
+#### For development:
+| Commands         | Result                                       |
+| :---             | :---                                         |
+| make lint        | Lint your code                               |
+
+#### For tests:
+| Commands         | Result                                       |
+| :---             | :---                                         |
+| make test        | Start Golang tests                           |
+| make build       | Build Application with 'fmt' and 'go get'    |
+| make image-test  | Test Image creation with 'fmt' and 'linting' |
+| make dive        | Check Image with Dive utility                |
+
+#### For work with Docker Images:
+| Commands         | Result                                       |
+| :---             | :---                                         |
+| make image       | Create Docker Image                          |
+| make push        | Push Docker Image to your repository         |
+| make clean       | Remove created Application Image             |
