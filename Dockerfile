@@ -4,9 +4,14 @@ WORKDIR /go/src/app
 COPY . .
 RUN make build
 
-FROM alpine:latest
+# hide 'FROM' for hotfix/prometheus.org_test-3.5.5
+#FROM alpine:latest
+# unhide 'FROM' for hotfix/prometheus.org_test-3.5.5
+FROM scratch
 WORKDIR /app
-COPY .env /app
+# hide 'COPY' for hotfix/prometheus.org_test-3.5.5
+# COPY .env /app
 COPY --from=builder /go/src/app/kbot .
-COPY --from=alpine:latest /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
+# hide 'COPY' for hotfix/prometheus.org_test-3.5.5
+#COPY --from=alpine:latest /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
 ENTRYPOINT ["./kbot", "start"]

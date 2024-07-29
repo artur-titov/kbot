@@ -1,4 +1,12 @@
-include .env	
+REGISTRY=gcr.io/dev8ops/kbot
+
+# variables moved from .env file for hotfix/prometheus.org_test-3.5.5
+TARGETOS=linux # linux darwin windows
+TARGETARCH=amd64 # amd64 arm64
+
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+PKGS=$(shell go list ./... | fgrep -v /vendor)
+# end of moved variables
 
 get:
 	go get
