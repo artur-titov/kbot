@@ -6,12 +6,13 @@ Bot for example - [@T16TestBot](https://t.me/T16TestBot) (now powered off)
 
 ## How to up
 
-Minimum requirements:
+Requirements:
 
 - Active internet access;
 - [Installed Git](https://git-scm.com/downloads);
 - [Installed Golang](https://go.dev/doc/install);
 - [Installed GNU Make](https://www.gnu.org/software/make/manual/make.html);
+- [Google Artifact Registry](https://cloud.google.com/artifact-registry)
 
 ### - Clone a repository:
 
