@@ -1,5 +1,7 @@
 include .env	
 
+IMAGE = ${LOCATION}-${REGISTRY}/${PROJECT_ID}/${REPOSITORY}/${ARTIFACT}:${VERSION}-${TARGETOS}-${TARGETARCH}-${ENVIRONMENT}
+
 get:
 	go get
 
@@ -21,7 +23,7 @@ image-test: lint format
 	docker build --check .
 
 image:
-	docker build -t ${REGISTRY}:${VERSION}-${TARGETARCH} .
+	docker build -t ${IMAGE} .
 
 dive: image
 	IMG1=$$(docker images -q | head -n 1); \
@@ -31,12 +33,13 @@ dive: image
 	--highestUserWastedPercent=0.05 \
 	--lowestEfficiency=0.98 \
 	$${IMG1}; \
-	IMG2=$$(docker images -q | sed -n 2p); \
-	docker rmi $${IMG1}; \
-	docker rmi $${IMG2}
+	docker rmi $${IMG1}
+
+run:
+	docker run -p 8080:8080 --name=${ARTIFACT} ${IMAGE}
 
 push:
-	docker push ${REGISTRY}:${VERSION}-${TARGETARCH}
+	docker push ${IMAGE}
 
 clean:
-	docker rmi ${REGISTRY}:${VERSION}-${TARGETARCH}
+	docker rmi ${IMAGE}
